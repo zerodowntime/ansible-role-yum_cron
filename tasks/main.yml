@@ -1,0 +1,61 @@
+---
+# yum_cron/tasks/main.yml
+
+- name: yum_cron | check os
+  block:
+
+    - name: yum_cron | install yum_cron
+      become: true
+      yum:
+        name: "{{ yum_cron__package_name }}"
+        state: "{{ yum_cron__package_state }}"
+      tags:
+        - yum_cron
+        - yum_cron::install
+
+
+    - name: yum_cron | configure
+      vars:
+        yum___cmd: "{{ yum_cron__opt[item].cmd }}"
+        yum___random_sleep: "{{ yum_cron__opt[item].random_sleep }}"
+      become: true
+      template:
+        src: yum-cron.conf.j2
+        dest: "{{ yum_cron__opt[item].configname }}"
+        owner: root
+        group: root
+        mode: 0644
+        seuser: 'system_u'
+        serole: 'object_r'
+        setype: 'etc_t'
+      loop:
+        - daily
+        - hourly
+      tags:
+        - yum_cron
+        - yum_cron::configure
+
+
+    - name: yum_cron | ensure that service is running
+      become: true
+      service:
+        name: "{{ yum_cron__service_name }}"
+        state: started
+      tags:
+        - yum_cron
+        - yum_cron::running
+
+
+    - name: yum_cron | ensure that service is enabled
+      become: true
+      service:
+        name: "{{ yum_cron__service_name }}"
+        enabled: true
+      tags:
+        - yum_cron
+        - yum_cron::enabled
+
+  # end block
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version >= '7'

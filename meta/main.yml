@@ -1,0 +1,18 @@
+---
+# zerodowntime.yum_cron/meta/main.yml
+
+dependencies: []
+
+galaxy_info:
+  role_name: yum_cron
+  author: ZeroDowntime
+  description: yum-cron auto-update mechanism safe for production systems
+  company: ZeroDowntime Sp. z o.o.
+  license: Apache License 2.0
+  min_ansible_version: 2.5
+  platforms:
+    - name: EL
+      versions:
+        - 7
+  galaxy_tags:
+    - system

@@ -1,0 +1,9 @@
+---
+
+- name: Converge
+  hosts: all
+  become: true
+  roles:
+    - role: zerodowntime.yum_cron
+      yum_cron__exclude:
+        - 'kernel*'

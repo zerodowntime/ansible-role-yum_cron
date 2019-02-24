@@ -1,0 +1,18 @@
+---
+# yum_cron/vars/main.yml
+
+# yum_cron__service_name: string
+# service name
+yum_cron__service_name: yum-cron
+
+# yum_cron__opt: dict
+# config map for internal useage
+yum_cron__opt:
+  daily:
+    configname: /etc/yum/yum-cron.conf
+    cmd: "{{ yum_cron__daily_update_cmd }}"
+    random_sleep: "{{ yum_cron__daily_random_sleep }}"
+  hourly:
+    configname: /etc/yum/yum-cron-hourly.conf
+    cmd: "{{ yum_cron__hourly_update_cmd }}"
+    random_sleep: "{{ yum_cron__hourly_random_sleep }}"

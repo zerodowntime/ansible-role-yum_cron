@@ -1,0 +1,85 @@
+---
+# yum_cron/tasks/main.yml
+
+# yum_cron__package_name: string
+# name of installed package
+yum_cron__package_name: yum-cron
+
+
+# yum_cron__package_state: string
+# install package state
+yum_cron__package_state: present
+
+
+# yum_cron__daily_update_cmd: sting
+# What kind of update to use for daily updates
+# options:
+#    default                            = yum upgrade
+#    security                           = yum --security upgrade
+#    security-severity:Critical         = yum --sec-severity=Critical upgrade
+#    minimal                            = yum --bugfix update-minimal
+#    minimal-security                   = yum --security update-minimal
+#    minimal-security-severity:Critical = --sec-severity=Critical update-minimal
+yum_cron__daily_update_cmd: security
+
+
+# yum_cron__hourly_update_cmd: sting
+# What kind of update to use for hourly updates
+# options:
+#    default                            = yum upgrade
+#    security                           = yum --security upgrade
+#    security-severity:Critical         = yum --sec-severity=Critical upgrade
+#    minimal                            = yum --bugfix update-minimal
+#    minimal-security                   = yum --security update-minimal
+#    minimal-security-severity:Critical = --sec-severity=Critical update-minimal
+yum_cron__hourly_update_cmd: minimal
+
+
+# yum_cron__email_to: string
+# List of addresses to send messages to.
+yum_cron__email_to: root
+
+
+# yum_cron__exclude: list
+# list of names excluded packages
+# example:
+#  yum_cron__exclude:
+#    - httpd
+#    - "kernel*"
+yum_cron__exclude: []
+
+
+# yum_cron__daily_random_sleep: int
+# Maximum amout of time to randomly sleep, in minutes for daily jobs. The program
+# will sleep for a random amount of time between 0 and random_sleep
+# minutes before running.
+yum_cron__daily_random_sleep: 60
+
+
+# yum_cron__hourly_random_sleep: int
+# Maximum amout of time to randomly sleep, in minutes for hourly jobs.  The program
+# will sleep for a random amount of time between 0 and random_sleep
+# minutes before running.
+yum_cron__hourly_random_sleep: 15
+
+
+# yum_cron__update_messages: bool
+# Whether a message should be emitted when updates are available,
+# were downloaded, or applied.
+yum_cron__update_messages: true
+
+
+# yum_cron__download_updates: bool
+# Whether updates should be downloaded when they are available.
+yum_cron__download_updates: true
+
+
+# yum_cron__apply_updates: bool
+# Whether updates should be applied when they are available.  Note
+# that download_updates must also be yes for the update to be applied.
+yum_cron__apply_updates: true
+
+# yum_cron__emit_via: string
+# How to send messages.
+
+yum_cron__emit_via: stdio
