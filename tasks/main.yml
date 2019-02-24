@@ -9,6 +9,8 @@
       yum:
         name: "{{ yum_cron__package_name }}"
         state: "{{ yum_cron__package_state }}"
+      register: yum_cron___install
+      until: yum_cron___install is success
       retries: 3
       delay: 2
       tags:
